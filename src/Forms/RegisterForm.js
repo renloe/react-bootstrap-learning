@@ -12,7 +12,6 @@ const RegisterForm = (props) => {
   const [passwordBorder, setPasswordBorder] = useState(
     classes.inputDefaultBorder
   );
-  const btnHandler = () => {};
 
   const emailChangeHandler = (e) => {
     const emailAddress = e.target.value;

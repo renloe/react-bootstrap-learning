@@ -56,3 +56,21 @@ test('checkbox test', async () => {
   await user.click(checkbox);
   expect(checkbox).toBeChecked();
 });
+
+test('test email border color with various input', async () => {
+  render(<RegisterForm />);
+  const user = userEvent.setup();
+
+  const emailInput = screen.getByPlaceholderText('Enter email');
+  expect(emailInput.getAttribute('class')).toMatch(/inputDefaultBorder/gi);
+
+  await user.type(emailInput, 'renloe@l');
+  expect(emailInput.getAttribute('class')).toMatch(/inputErrorBorder/gi);
+  await user.clear(emailInput);
+
+  await user.type(emailInput, 'renloe@live.com');
+  expect(emailInput.getAttribute('class')).toMatch(/inputSuccessBorder/gi);
+  await user.clear(emailInput);
+
+  expect(emailInput.getAttribute('class')).toMatch(/inputdefaultborder/gi);
+});

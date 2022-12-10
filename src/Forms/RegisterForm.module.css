@@ -1,0 +1,28 @@
+.formContainer {
+    margin: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    padding: 1rem;
+}
+
+.messageAddressValid {
+    color: #47cc47
+}
+
+.messageAddressError {
+    color: #924343;
+}
+
+.inputDefaultBorder {
+    borer: 1px  solid #ced4da!important;
+}
+
+.inputSuccessBorder {
+    border: 1px solid #47cc47!important;
+}
+
+.inputErrorBorder {
+    border: 1px solid #924343!important;
+}
+
+
+

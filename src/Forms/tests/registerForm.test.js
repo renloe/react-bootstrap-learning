@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import RegisterForm from '../RegisterForm';
@@ -57,20 +57,46 @@ test('checkbox test', async () => {
   expect(checkbox).toBeChecked();
 });
 
-test('test email border color with various input', async () => {
+test('test form input validation border colors and submit button enable-disable', async () => {
   render(<RegisterForm />);
   const user = userEvent.setup();
 
   const emailInput = screen.getByPlaceholderText('Enter email');
+  const passwordInput = screen.getByPlaceholderText('Password');
+  const submitButton = screen.getByRole('button');
+
   expect(emailInput.getAttribute('class')).toMatch(/inputDefaultBorder/gi);
+  expect(passwordInput.getAttribute('class')).toMatch(/inputDefaultBorder/gi);
+  expect(submitButton).toBeDisabled();
 
   await user.type(emailInput, 'renloe@l');
   expect(emailInput.getAttribute('class')).toMatch(/inputErrorBorder/gi);
+  await user.type(passwordInput, '123');
+  expect(passwordInput.getAttribute('class')).toMatch(/inputErrorBorder/gi);
+  expect(submitButton).toBeDisabled();
+
   await user.clear(emailInput);
+  await user.clear(passwordInput);
 
   await user.type(emailInput, 'renloe@live.com');
   expect(emailInput.getAttribute('class')).toMatch(/inputSuccessBorder/gi);
+  await user.type(passwordInput, '1234567');
+  expect(passwordInput.getAttribute('class')).toMatch(/inputSuccessBorder/gi);
+  expect(submitButton).toBeEnabled();
+
   await user.clear(emailInput);
+  await user.clear(passwordInput);
+
+  await user.type(emailInput, 'renloe@live');
+  await user.type(passwordInput, '123');
+  expect(emailInput.getAttribute('class')).toMatch(/inputErrorborder/gi);
+  expect(passwordInput.getAttribute('class')).toMatch(/InputErrorborder/gi);
+  expect(submitButton).toBeDisabled();
+
+  await user.clear(emailInput);
+  await user.clear(passwordInput);
 
   expect(emailInput.getAttribute('class')).toMatch(/inputdefaultborder/gi);
+  expect(passwordInput.getAttribute('class')).toMatch(/inputdefaultborder/gi);
+  expect(submitButton).toBeDisabled();
 });

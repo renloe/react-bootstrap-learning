@@ -49,6 +49,12 @@ const RegisterForm = (props) => {
     }
   };
 
+  const formSubmitHandler = (e) => {
+    e.preventDefault();
+    console.log(`Email Address: ${emailText}`);
+    console.log(`Password: ${passwordText}`);
+  };
+
   return (
     <div className={classes.formContainer}>
       <Form>
@@ -82,7 +88,7 @@ const RegisterForm = (props) => {
           className="mb-3"
           variant="primary"
           type="submit"
-          onClick={btnHandler}
+          onClick={formSubmitHandler}
           disabled={!emailValid || !passwordValid}
         >
           {props.buttonText}

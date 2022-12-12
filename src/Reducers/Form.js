@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 
 import formReducer from './formReducer';
 
-const initialForState = {
+const initialFormState = {
   username: '',
   email: '',
   password: '',
@@ -10,7 +10,7 @@ const initialForState = {
 };
 
 const Form = () => {
-  const [formState, dispatch] = useReducer(formReducer, initialForState);
+  const [formState, dispatch] = useReducer(formReducer, initialFormState);
   const handleTextChange = (e) => {
     dispatch({
       type: 'HANDLE_INPUT_TEXT',
